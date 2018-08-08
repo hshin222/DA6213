@@ -18,21 +18,21 @@ library(lubridate)
 
 ```{r}
 # unemployment rate 1948-June 2018, included 6, 12, 24 month lag times
-unEmp = read.csv("https://github.com/mosierbryon/MSDA/raw/master/unemployment_lagged.csv")
+unEmp = read.csv("https://github.com/hshin222/DA6213/raw/master/unemployment_lagged.csv")
 unEmp$DATE = as.Date(unEmp$DATE,"%m/%d/%Y")
 # average length of unemployment 1948-June 2018
-uLength = read.csv("https://github.com/mosierbryon/MSDA/raw/master/mean_unemployment_length.csv")
+uLength = read.csv("https://github.com/hshin222/DA6213/raw/master/mean_unemployment_length.csv")
 # binary representation of extended unemployment insurance benfits 
-extUI = read.csv("https://github.com/mosierbryon/MSDA/raw/master/extended_unemployment.csv")
+extUI = read.csv("https://github.com/hshin222/DA6213/raw/master/extended_unemployment.csv")
 extUI$DATE = as.Date(extUI$DATE, "%m/%d/%Y")
 extUI$extension = as.factor(extUI$extension)
-rec = read.csv("https://github.com/mosierbryon/MSDA/raw/master/USREC.csv")
+rec = read.csv("https://github.com/hshin222/DA6213/raw/master/USREC.csv")
 rec$DATE = as.Date(rec$DATE, "%m/%d/%Y")
 rec$recession = as.factor(rec$recession)
 rec$recession_6 = as.factor(rec$recession_6)
 rec$recession_9 = as.factor(rec$recession_9)
 rec$recession_12 = as.factor(rec$recession_12)
-fedFunds = read.csv("https://github.com/mosierbryon/MSDA/raw/master/fed_funds_rate.csv")
+fedFunds = read.csv("https://github.com/hshin222/DA6213/raw/master/fed_funds_rate.csv")
 fedFunds$DATE = as.Date(fedFunds$DATE,"%m/%d/%Y")
 
 plot(fedFunds$DATE,fedFunds$funds_rate)
@@ -51,7 +51,7 @@ allData = allData[completeData,]
 
 ```{r}
 # read csv: unemployment length 
-df_length <- read.csv('https://raw.githubusercontent.com/mosierbryon/MSDA/master/mean_unemployment_length.csv')
+df_length <- read.csv('https://raw.githubusercontent.com/hshin222/DA6213/master/mean_unemployment_length.csv')
 names(df_length) <- c('date','mean_unemp_weeks')
 df_length <- df_length %>% mutate(date=as.Date(date,format='%m/%d/%Y'))
 
@@ -60,7 +60,7 @@ p <- ggplot(df_length,aes(x=date,y=mean_unemp_weeks)) + geom_point(stat='identit
 p
 
 # read csv: unemployment rate
-df_rate <- read.csv('https://raw.githubusercontent.com/mosierbryon/MSDA/master/Unemployment.csv')
+df_rate <- read.csv('https://raw.githubusercontent.com/hshin222/DA6213/master/Unemployment.csv')
 df_rate <- df_rate %>% mutate(Month=as.character(Month),
                                date=parse_date_time2(paste(Year,Month,'01',sep='-'),'%Y-%m-%d')) %>%  
                        select(date,Unemployment_Rate,rate_women) %>% 
@@ -71,7 +71,7 @@ df_rate <- inner_join(df_length,df_rate,by=c('date'='date'))
 df_rate <- df_rate %>% select(date,everything())
 
 # read csv: fred data
-df_fred <- read.csv('https://raw.githubusercontent.com/mosierbryon/MSDA/master/fred_mo_1919_2018_180715.csv')
+df_fred <- read.csv('https://raw.githubusercontent.com/hshin222/DA6213/master/fred_mo_1919_2018_180715.csv')
 names(df_fred)[1] <- c('date')
 df_fred <- df_fred %>% mutate(date=as.Date(date,format='%Y-%m-%d'), year=year(date))
 
